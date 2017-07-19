@@ -57,7 +57,7 @@ where `foo` is a git repo containing markdown files with hyperlinks to each othe
 
 - Have python installed  
 - Install Pandoc: `apt install pandoc`
-- Install python requirements: `pip install -r requirements.txt`
+- Install panflute: `pip install panflute`
 
 ## Why?
 
