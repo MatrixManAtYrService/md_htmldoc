@@ -26,6 +26,24 @@ When you run `md_htmldoc.sh`
   5. All `.md` files will be converted to `.html` files
   6. Hyperlinks will be fixed so that the `.html` files link to each other
   
+Then you'll have a directory tree like this
+
+    .                                                                                                                                                                                                         
+    └── foo                                                                                                             
+        ├── bar.md                                                                                                      
+        ├── baz                                                                                                         
+        │   ├── qux.md                                                                                                  
+        │   └── qux.png                                                                                                 
+        ├── foo_htmldoc                                                                                                 
+        │   ├── bar.html                                                                                                
+        │   └── baz                                                                                                     
+        │       ├── qux.md                                                                                              
+        │       └── qux.png                                                                                             
+        └── md_htmldoc                                                                                                  
+            ├── md-to-http.sh                                                                                           
+            └── README.md      
+
+  
 ## Requirements
 
 - Have python installed  
