@@ -4,6 +4,7 @@ Store markdown documentation in the same folder as code, run this script, get ht
 ## What it will do
  
 Suppose you have a directory tree like this:
+
     .
     └── foo
         ├── bar.md
