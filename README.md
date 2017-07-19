@@ -4,30 +4,21 @@ Store markdown documentation in the same folder as code, run this script, get ht
 ## What it will do
  
 ##### Suppose you have some project that looks like this:
-    .
-    └── foo
-        ├── CMakeLists.txt
-        ├── include
-        │   ├── bar.h
-        │   ├── baz.h
-        │   └── baz.md
-        ├── md_htmldoc
-        │   ├── get_references.py
-        │   ├── link_filter.py
-        │   ├── md_htmldoc.sh
-        │   └── README.md
-        ├── README.md
-        ├── src
-        │   ├── bar.cpp
-        │   ├── bar_doc.md
-        │   └── bar.jpg
-        └── test
-            └── test_bar.cpp
+
+    foo
+    ├── bar.md
+    ├── baz
+    │   ├── image.png
+    │   ├── qux.md
+    │   └── some.other.file
+    ├── grault
+    │   └── file
+    ├── README.md
+    └── some.file
     
-- `foo` is a git repo containing markdown files with hyperlinks to each other
-- `md_htmldoc` is this repo (either cloned within `foo` or added as a submodule)
+where `foo` is a git repo containing markdown files with hyperlinks to each other
     
-##### If you run `md_htmldoc.sh`
+##### If you add this repo as a submodule and run `md_htmldoc.sh`
 
   1. `./foo/foo_htmldoc` will be deleted, if it exists
   2. All of the `.md` files under `foo` will be found and deemed "documentation-relevant"
@@ -38,32 +29,26 @@ Store markdown documentation in the same folder as code, run this script, get ht
   
 ##### Then you'll have a directory tree like this
 
-    .
-    └── foo
-        ├── CMakeLists.txt
-        ├── foo_htmldoc
-        │   ├── include
-        │   │   └── baz.html
-        │   ├── README.html
-        │   └── src
-        │       ├── bar_doc.html
-        │       └── bar.jpg
-        ├── include
-        │   ├── bar.h
-        │   ├── baz.h
-        │   └── baz.md
-        ├── md_htmldoc
-        │   ├── get_references.py
-        │   ├── link_filter.py
-        │   ├── md_htmldoc.sh
-        │   └── README.md
-        ├── README.md
-        ├── src
-        │   ├── bar.cpp
-        │   ├── bar_doc.md
-        │   └── bar.jpg
-        └── test
-            └── test_bar.cpp
+    foo
+    ├── bar.md
+    ├── baz
+    │   ├── image.png
+    │   ├── qux.md
+    │   └── some.other.file
+    ├── foo_htmldoc
+    │   ├── bar.html
+    │   ├── baz
+    │   │   ├── image.png
+    │   │   └── qux.html
+    │   └── README.html
+    ├── grault
+    │   └── file
+    ├── md_htmldoc
+    │   └── ...
+    ├── README.md
+    └── some.file
+    test.txt
+
 
  - `foo_htmldoc` has been added
   - it contains just the documentation, and the markdown has been converted to html
@@ -79,3 +64,7 @@ Store markdown documentation in the same folder as code, run this script, get ht
 Maybe you want to share documentation with somebody that doesn't have access to your source repository, but you don't want to separate your documentation from your code.  You can use this script to create documentation builds and then serve them to the wider world, without also providing access to your code.
 
 This makes me sad, but it appeases certain people that I work with
+
+## Troubleshooting
+
+- If you get `cp: cannot create regular file` errors, make sure that all of the documentation-relevant files in the parent repo are checked in.  md_htmldoc uses `git ls-tree` to discover the directory tree of the parent repo, and it will fail to mimic the directory structure if there are pending changes
