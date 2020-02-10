@@ -35,7 +35,7 @@ for i in ${DOC_RELEVANT[@]} ; do
     TO=${i/\.\./../$HTML_DIR}
 
     if [[ $i == *.md ]] ; then
-        # generate html, replaicng .md links with .html links
+        # generate html, replacing .md links with .html links
         printf "    %35s" $FROM
         printf " --pandoc--> "
         printf "%-35s\n" ${TO/\.md/.html}
