@@ -22,7 +22,7 @@ for arg in sys.argv[1].split('\n'):
     for i, line in enumerate(open(arg)):
         for match in re.finditer(pattern, line):
             for group in match.groups():
-                ref_file = '{}/{}'.format(dirname, group)
+                ref_file = '{}/{}'.format(dirname, group.rsplit('#page=', 1)[0])
                 if os.path.exists(ref_file):
                     doc_relevant.add(ref_file)
                 else:
