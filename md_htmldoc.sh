@@ -24,7 +24,7 @@ for i in ${PARENT_REPO_CACHED_FILES[@]} ; do
 done
 
 # discover docs in parent repo
-PARENT_REPO_DOCUMENTATION=$(find .. | egrep '\.md$' | egrep -v '\./md_htmldoc')
+PARENT_REPO_DOCUMENTATION=$(find .. -name .git -prune -o -name md_htmldoc -prune -o -iname "*.md" -print)
 DOC_RELEVANT=$(python $DIR/get_references.py $PARENT_REPO_DOCUMENTATION)
 
 # for each documentation-relevant file
