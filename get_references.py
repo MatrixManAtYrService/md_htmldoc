@@ -10,7 +10,10 @@ doc_relevant = set()
 for arg in sys.argv[1:]:
 
     if not os.path.exists(arg):
-        raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), arg)
+        if sys.version_info[0] == 2:
+            raise IOError(errno.ENOENT, os.strerror(errno.ENOENT), arg)
+        else:
+            raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), arg)
     else:
         (dirname, basename) = os.path.split(arg)
 
