@@ -3,7 +3,7 @@ import sys
 import errno
 import os
 
-pattern = re.compile(r"\[[^[]*]\(([^)]*)\)")
+pattern = re.compile(r"\[[^\]]+?]\(([^)]+?)\)")
 
 doc_relevant = set()
 
