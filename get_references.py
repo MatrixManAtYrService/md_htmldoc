@@ -7,7 +7,7 @@ pattern = re.compile(r"\[[^\]]+?]\(([^)]+?)\)")
 
 doc_relevant = set()
 
-for arg in sys.argv[1:]:
+for arg in sys.argv[1].split('\n'):
 
     if not os.path.exists(arg):
         if sys.version_info[0] == 2:

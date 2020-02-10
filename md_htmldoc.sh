@@ -25,11 +25,11 @@ done
 
 # discover docs in parent repo
 PARENT_REPO_DOCUMENTATION=$(find .. -name .git -prune -o -name md_htmldoc -prune -o -iname "*.md" -print)
-DOC_RELEVANT=$(python $DIR/get_references.py $PARENT_REPO_DOCUMENTATION)
+readarray -t DOC_RELEVANT<<<$(python $DIR/get_references.py "$PARENT_REPO_DOCUMENTATION")
 
 # for each documentation-relevant file
 echo extracting docs...
-for i in ${DOC_RELEVANT[@]} ; do
+for i in "${DOC_RELEVANT[@]}" ; do
 
     FROM=$i
     TO=${i/\.\./../$HTML_DIR}
@@ -39,13 +39,13 @@ for i in ${DOC_RELEVANT[@]} ; do
         printf "    %35s" $FROM
         printf " --pandoc--> "
         printf "%-35s\n" ${TO/\.md/.html}
-        pandoc -s $FROM --filter link_filter.py -o ${TO/\.md/.html}
+        pandoc -s "$FROM" --filter link_filter.py -o "${TO/\.md/.html}"
     else
         # copy hyperlinked files
         printf "    %35s" $FROM
         printf " ----cp----> "
         printf "%-35s\n" $TO
-        cp $FROM $TO
+        cp "$FROM" "$TO"
     fi
 done
 
