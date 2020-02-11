@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+
+command -v pandoc >/dev/null 2>&1 || { echo >&2 "This script requires pandoc but it's not installed. Aborting."; exit 1; }
+command -v python >/dev/null 2>&1 || { echo >&2 "This script requires python but it's not installed. Aborting."; exit 1; }
+
 ORIG=$(pwd)
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
