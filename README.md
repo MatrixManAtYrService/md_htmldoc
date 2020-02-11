@@ -15,10 +15,10 @@ Store markdown documentation in the same folder as code, run this script, get ht
     │   └── file
     ├── README.md
     └── some.file
-    
+
 where `foo` is a git repo containing markdown files with hyperlinks to each other
-    
-##### If you add this repo as a submodule and run `md_htmldoc.sh`
+
+##### If you [add this repo as a submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules#_starting_submodules) and run `md_htmldoc.sh`
 
   1. `./foo/foo_htmldoc` will be deleted, if it exists
   2. All of the `.md` files under `foo` will be found and deemed "documentation-relevant"
