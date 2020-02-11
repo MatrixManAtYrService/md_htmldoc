@@ -1,10 +1,13 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 import re
 import sys
 import errno
 import os
-from urllib.parse import unquote
+if sys.version_info[0] == 2:
+    from urllib import unquote
+else:
+    from urllib.parse import unquote
 
 pattern = re.compile(r"\[[^\]]+?]\(([^)]+?)\)")
 
@@ -13,7 +16,10 @@ doc_relevant = set()
 for arg in sys.argv[1].split('\n'):
 
     if not os.path.exists(arg):
-        raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), arg)
+        if sys.version_info[0] == 2:
+            raise IOError(errno.ENOENT, os.strerror(errno.ENOENT), arg)
+        else:
+            raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), arg)
     else:
         (dirname, basename) = os.path.split(arg)
 
