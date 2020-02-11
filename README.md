@@ -3,7 +3,7 @@ Store markdown documentation in the same folder as code, run this script, get ht
 
 ## What it will do
 
-##### Suppose you have some project that looks like this:
+Suppose you have some project that looks like this:
 
     foo
     ├── bar.md
@@ -18,7 +18,7 @@ Store markdown documentation in the same folder as code, run this script, get ht
 
 where `foo` is a git repo containing markdown files with hyperlinks to each other
 
-##### If you [add this repo as a submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules#_starting_submodules) and run `md_htmldoc.sh`
+If you [add this repo as a submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules#_starting_submodules) and run `md_htmldoc.sh`
 
   1. `./foo/foo_htmldoc` will be deleted, if it exists
   2. All of the `.md` files under `foo` will be found and deemed "documentation-relevant"
@@ -27,7 +27,7 @@ where `foo` is a git repo containing markdown files with hyperlinks to each othe
   5. All `.md` files will be converted to `.html` files
   6. Hyperlinks will be fixed so that the `.html` files link to each other
 
-##### Then you'll have a directory tree like this
+Then you'll have a directory tree like this
 
     foo
     ├── bar.md
