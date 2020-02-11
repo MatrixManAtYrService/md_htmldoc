@@ -4,6 +4,7 @@ import re
 import sys
 import errno
 import os
+from urllib.parse import unquote
 
 pattern = re.compile(r"\[[^\]]+?]\(([^)]+?)\)")
 
@@ -24,6 +25,8 @@ for arg in sys.argv[1].split('\n'):
                 ref_file = '{}/{}'.format(dirname, group.rsplit('#page=', 1)[0])
                 if os.path.exists(ref_file):
                     doc_relevant.add(ref_file)
+                elif os.path.exists(unquote(ref_file)):
+                    doc_relevant.add(unquote(ref_file))
                 else:
                     sys.stderr.write("ignoring reference to nonlocal file: {}{}".format(ref_file, os.linesep))
 
