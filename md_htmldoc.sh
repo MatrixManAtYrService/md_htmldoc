@@ -17,10 +17,13 @@ for i in ${PARENT_REPO_CACHED_FILES[@]} ; do
 
     FROM="../$(dirname $i)"
     TO="../$HTML_DIR/$(dirname $i)"
-    printf "    %35s" "$FROM"
-    printf "  --mkdir-->"
-    printf "    %35s\n" "$TO"
-    mkdir -p "$TO"
+    if [[ ! -d "$TO" ]]
+    then
+        printf "    %35s" "$FROM"
+        printf "  --mkdir-->"
+        printf "    %35s\n" "$TO"
+        mkdir -p "$TO"
+    fi
 done
 
 # discover docs in parent repo
