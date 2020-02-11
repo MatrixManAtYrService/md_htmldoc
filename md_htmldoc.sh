@@ -28,7 +28,7 @@ done
 
 # discover docs in parent repo
 PARENT_REPO_DOCUMENTATION=$(find .. -name .git -prune -o -name md_htmldoc -prune -o -iname "*.md" -print)
-readarray -t DOC_RELEVANT<<<$($DIR/get_references.py "$PARENT_REPO_DOCUMENTATION")
+readarray -t DOC_RELEVANT<<<$($DIR/get_references.py "$PARENT_REPO_DOCUMENTATION" | tr -d '\r')
 
 # for each documentation-relevant file
 echo extracting docs...
