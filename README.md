@@ -53,6 +53,18 @@ Then you'll have a directory tree like this
  - `foo_htmldoc` has been added
   - it contains just the documentation, and the markdown has been converted to html
 
+## Git Hooks
+
+As soon as you tested the script, you can set it to automatically execute in background after changes - e.g. hooks ``post-commit``, ``post-checkout`` and ``post-merge``, so HTML version will always be up to date.
+
+Example hook script:
+
+    #!/bin/sh
+    echo "Converting Markdown to HTML in background"
+    ./md_htmldoc/md_htmldoc.sh >/dev/null 2>&1 &
+
+Copy that script to ``.git/hooks`` of your ``foo`` repository with corresponding hook name and make sure it is executable.
+
 ## Requirements
 
 - Have python installed
