@@ -2,7 +2,7 @@
 Store markdown documentation in the same folder as code, run this script, get html documentation in a dedicated folder
 
 ## What it will do
- 
+
 ##### Suppose you have some project that looks like this:
 
     foo
@@ -26,7 +26,7 @@ where `foo` is a git repo containing markdown files with hyperlinks to each othe
   4. All documentation-relevant files will be copied into `./foo/foo_htmldoc`
   5. All `.md` files will be converted to `.html` files
   6. Hyperlinks will be fixed so that the `.html` files link to each other
-  
+
 ##### Then you'll have a directory tree like this
 
     foo
@@ -52,10 +52,10 @@ where `foo` is a git repo containing markdown files with hyperlinks to each othe
 
  - `foo_htmldoc` has been added
   - it contains just the documentation, and the markdown has been converted to html
-     
+
 ## Requirements
 
-- Have python installed  
+- Have python installed
 - Install Pandoc: `apt install pandoc`
 - Install panflute: `pip install panflute`
 
