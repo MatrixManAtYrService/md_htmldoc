@@ -2,8 +2,8 @@
 Store markdown documentation in the same folder as code, run this script, get html documentation in a dedicated folder
 
 ## What it will do
- 
-##### Suppose you have some project that looks like this:
+
+Suppose you have some project that looks like this:
 
     foo
     ├── bar.md
@@ -15,10 +15,10 @@ Store markdown documentation in the same folder as code, run this script, get ht
     │   └── file
     ├── README.md
     └── some.file
-    
+
 where `foo` is a git repo containing markdown files with hyperlinks to each other
-    
-##### If you add this repo as a submodule and run `md_htmldoc.sh`
+
+If you [add this repo as a submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules#_starting_submodules) and run `md_htmldoc.sh`
 
   1. `./foo/foo_htmldoc` will be deleted, if it exists
   2. All of the `.md` files under `foo` will be found and deemed "documentation-relevant"
@@ -26,8 +26,8 @@ where `foo` is a git repo containing markdown files with hyperlinks to each othe
   4. All documentation-relevant files will be copied into `./foo/foo_htmldoc`
   5. All `.md` files will be converted to `.html` files
   6. Hyperlinks will be fixed so that the `.html` files link to each other
-  
-##### Then you'll have a directory tree like this
+
+Then you'll have a directory tree like this
 
     foo
     ├── bar.md
@@ -52,10 +52,22 @@ where `foo` is a git repo containing markdown files with hyperlinks to each othe
 
  - `foo_htmldoc` has been added
   - it contains just the documentation, and the markdown has been converted to html
-     
+
+## Git Hooks
+
+As soon as you tested the script, you can set it to automatically execute in background after changes - e.g. hooks ``post-commit``, ``post-checkout`` and ``post-merge``, so HTML version will always be up to date.
+
+Example hook script:
+
+    #!/bin/sh
+    echo "Converting Markdown to HTML in background"
+    ./md_htmldoc/md_htmldoc.sh >/dev/null 2>&1 &
+
+Copy that script to ``.git/hooks`` of your ``foo`` repository with corresponding hook name and make sure it is executable.
+
 ## Requirements
 
-- Have python installed  
+- Have python installed
 - Install Pandoc: `apt install pandoc`
 - Install panflute: `pip install panflute`
 

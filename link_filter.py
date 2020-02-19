@@ -1,3 +1,8 @@
+#!/usr/bin/env python3
+
+# Code by Sergio Correia
+# https://stackoverflow.com/questions/40993488/#41005658
+
 import panflute as pf
 
 def action(elem, doc):
