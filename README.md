@@ -80,4 +80,4 @@ This makes me sad, but it appeases certain people that I work with
 ## Troubleshooting
 
 - If you get `cp: cannot create regular file` errors, make sure that all of the documentation-relevant files in the parent repo are checked in.  md_htmldoc uses `git ls-tree` to discover the directory tree of the parent repo, and it will fail to mimic the directory structure if there are pending changes
-- If you get `Exception: unknown tag: Caption` in log for some files: Downgrade to Pandoc 2.9.2.1 as [Pandoc 2.10 is not yet supported by panflute](https://github.com/sergiocorreia/panflute/issues/142)
+- If you get `Exception: unknown tag: Caption` in log for some files: There is an incompatibility between Pandoc >= 2.10 and panflute < 2.0.3 [see issue #142](https://github.com/sergiocorreia/panflute/issues/142), so upgrade your panflute egg.
