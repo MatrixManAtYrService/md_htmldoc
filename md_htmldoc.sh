@@ -46,7 +46,7 @@ for i in "${DOC_RELEVANT[@]}" ; do
         printf "    %35s" $FROM
         printf " --pandoc--> "
         printf "%-35s\n" ${TO/\.md/.html}
-        pandoc -s "$FROM" --filter link_filter.py -o "${TO/\.md/.html}"
+        pandoc -s "$FROM" --mathjax --filter link_filter.py -o "${TO/\.md/.html}"
     else
         # copy hyperlinked files
         printf "    %35s" $FROM
