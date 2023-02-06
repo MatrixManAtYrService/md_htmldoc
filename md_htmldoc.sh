@@ -1,12 +1,25 @@
 #!/usr/bin/env bash
+ORIG=$(pwd)
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $DIR/scripts/vercomp.sh
 
 command -v pandoc >/dev/null 2>&1 || { echo >&2 "This script requires pandoc but it's not installed. Aborting."; exit 1; }
 command -v python >/dev/null 2>&1 || { echo >&2 "This script requires python but it's not installed. Aborting."; exit 1; }
 
-ORIG=$(pwd)
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+# Testing python3 panflute version
+if [[ $(pip3 show panflute) =~ Version:\ ([0-9.]+) ]]; then
+  check_min_ver "python3 panflute" "2.1.0" ${BASH_REMATCH[1]}
+else
+  echo "No python3 panflute found. Please install a recent version and try again. Aborting."
+  exit 1
+fi
 
 cd $DIR
+
+# set marker to know if another instance starts meanwhile (and abort this run in that case)
+touch .script_running
+STARTTIME=$(stat -c %y .script_running)
+NOWTIME=$(stat -c %y .script_running)
 
 # make way for html
 HTML_DIR=$(basename $(dirname $DIR))_htmldoc
@@ -18,6 +31,7 @@ PARENT_REPO_CACHED_FILES=$(cd .. && git ls-files)
 
 echo copying directory structure...
 for i in ${PARENT_REPO_CACHED_FILES[@]} ; do
+    NOWTIME=$(stat -c %y .script_running) ; if [[ $STARTTIME != $NOWTIME ]] ; then echo ABORTING, another instance started meanwhile && exit ; fi
 
     FROM="../$(dirname $i)"
     TO="../$HTML_DIR/$(dirname $i)"
@@ -37,6 +51,7 @@ readarray -t DOC_RELEVANT<<<$($DIR/get_references.py "$PARENT_REPO_DOCUMENTATION
 # for each documentation-relevant file
 echo extracting docs...
 for i in "${DOC_RELEVANT[@]}" ; do
+    NOWTIME=$(stat -c %y .script_running); if [[ $STARTTIME != $NOWTIME ]] ; then echo ABORTING, another instance started meanwhile && exit ; fi
 
     FROM=$i
     TO=${i/\.\./../$HTML_DIR}
@@ -63,4 +78,7 @@ grep -q -F "${HTML_DIR}/" ../.gitignore || echo "${HTML_DIR}/" >> ../.gitignore
 # clean up any empty directories we may have created
 find ../$HTML_DIR -type d -empty -delete
 
+echo Done! Enjoy your HTML files.
+
+rm .script_running
 cd $ORIG
