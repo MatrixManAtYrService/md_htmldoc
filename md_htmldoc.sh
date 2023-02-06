@@ -78,5 +78,7 @@ grep -q -F "${HTML_DIR}/" ../.gitignore || echo "${HTML_DIR}/" >> ../.gitignore
 # clean up any empty directories we may have created
 find ../$HTML_DIR -type d -empty -delete
 
+echo Done! Enjoy your HTML files.
+
 rm .script_running
 cd $ORIG
