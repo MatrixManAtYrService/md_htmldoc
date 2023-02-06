@@ -1,10 +1,18 @@
 #!/usr/bin/env bash
+ORIG=$(pwd)
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $DIR/scripts/vercomp.sh
 
 command -v pandoc >/dev/null 2>&1 || { echo >&2 "This script requires pandoc but it's not installed. Aborting."; exit 1; }
 command -v python >/dev/null 2>&1 || { echo >&2 "This script requires python but it's not installed. Aborting."; exit 1; }
 
-ORIG=$(pwd)
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+# Testing python3 panflute version
+if [[ $(pip3 show panflute) =~ Version:\ ([0-9.]+) ]]; then
+  check_min_ver "python3 panflute" "2.1.0" ${BASH_REMATCH[1]}
+else
+  echo "No python3 panflute found. Please install a recent version and try again. Aborting."
+  exit 1
+fi
 
 cd $DIR
 
